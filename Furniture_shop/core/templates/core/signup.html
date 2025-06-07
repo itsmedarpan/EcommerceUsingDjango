@@ -5,27 +5,53 @@
             <div class="w-full bg-gray-100 p-6 rounded-xl">
                 <h1 class="mb-6 text-2xl">Singup</h1>
                 <form method="post" action="." class="space-y-3">
+                    {% csrf_token %}
+                    <div>
+                        <lable>Username</lable>
+                        <input type="text" name="Username" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                    </div>
+
+                    <div>
+                        <lable>First Name</lable>
+                        <input type="text" name="first_name" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                    </div>
+                    <div>
+                        <lable>Last Name</lable>
+                        <input type="text" name="last_name" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                    </div>
+
                     <div>
                         <lable>E-mail</lable>
-                        <input type="email" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
-
+                        <input type="email" name="email" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
                     </div>
 
                     <div>
                         <lable>Password</lable>
-                        <input type="password" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                        <input type="password" name="password1" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
                         
                     </div>
 
                     <div>
                         <lable>Repeat Password</lable>
-                        <input type="password" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
+                        <input type="password" name="password2" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
                     </div>
                    
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
                     <div class="p-6 bg-red-200 text-red-800 rounded-xl">
-                        <p>This is an error!</p>
+                        <p>{{error|escape}}</p>
                     </div>
+                        {% endfor %}
                    
+                    {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+                        <div class="p-6 bg-red-200 text-red-800 rounded-xl">
+                            <p>{{error|escape}}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                     <div>
                        <button class="py-4 px-6 rounded-xl text-white bg-purple-500 hover:bg-purple-700">Submit</button>
                     </div>
