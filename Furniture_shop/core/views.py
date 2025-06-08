@@ -12,7 +12,7 @@ def homepage(request):
     return render(request,'core/frontpage.html',{'products':products})
 
 def signup(request):
-    if request.method == 'Post':
+    if request.method == 'POST':
         form = SignUpForm(request.POST)
 
         if form.is_valid():

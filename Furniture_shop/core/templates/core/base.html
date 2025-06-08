@@ -13,6 +13,15 @@
                 <ul class="flex items-center space-x-4">
                     <li><a href="{% url 'shop' %}">Shop</a></li>
                     <li><a href="#">About</a></li>
+
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">Log out</button>
+                        </form>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
 

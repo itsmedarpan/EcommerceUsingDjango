@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_REDIRECT_URL = '/'
+
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
 # Application definition
