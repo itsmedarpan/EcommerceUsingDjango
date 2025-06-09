@@ -5,7 +5,7 @@ from django.contrib.auth import views
 from django.urls import path, include
 from .views import homepage, shop, signup, login_old
 from product.views import product
-from cart.views import add_to_cart
+from cart.views import add_to_cart, cart, checkout
 
 urlpatterns = [
     path('',homepage, name='homepage'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('signup/', signup, name='signup'),
     path('login/', views.LoginView.as_view(template_name='core/login.html'), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('cart/', cart, name='cart'),
+    path('checkout/', checkout, name='checkout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
