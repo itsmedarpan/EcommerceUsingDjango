@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock %} | Furniture Shop</title>
 </head>
 <body>
     <nav class="border-b border-gray-300">
         <div class="max-w-6xl mx-auto py-2 px-6 xl:px-0 flex items-center justify-between">
             <div class="menu-left flex items-center space-x-6">
-                <a href="#" class="py4 text-lg text-purple-500 font-semibold">Furniture_shop</a>
+                <a href="{% url 'homepage' %}" class="py4 text-lg text-purple-500 font-semibold">Furniture_shop</a>
                 <ul class="flex items-center space-x-4">
                     <li><a href="{% url 'shop' %}">Shop</a></li>
                     <li><a href="#">About</a></li>
@@ -26,11 +27,18 @@
             </div>
 
             <div class="menu-right flex items-center space-x-4">
-                <a href="#">
+                <a href="{% url 'myaccount' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     </svg>
                 </a>
+
+                <div
+                hx-get="{% url 'hx_menu_cart' %}"
+                hx-trigger="update-menu-cart from:body"
+                hx-swap="innerHTML"
+                >
+            
                 {% include 'cart/menu_cart.html' %}
             </div>
         </div>
