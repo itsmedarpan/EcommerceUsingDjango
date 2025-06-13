@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from itertools import product
+
+from product.models import Product
 
 class Order(models.Model):
     ORDERED = 'ordered'
@@ -9,7 +12,7 @@ class Order(models.Model):
         (ORDERED, 'Ordered'),
         (SHIPPED, 'Shipped')
     }
-    user = models.ForeignKey(User, related_name='oders', blank=True, null=True on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='oders', blank=True, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
@@ -17,7 +20,8 @@ class Order(models.Model):
     zipcode = models.CharField(max_length=255)
     email = models.CharField(max_length=255)
     place = models.CharField(max_length=255)
-    
+    phone = models.CharField(max_length=255, null=True, blank=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     paid = models.BooleanField(default=False)
@@ -26,4 +30,7 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED )
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_names='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name = 'items', on_delete=models.CASCADE)    
+    price = models.IntegerField()
+    quantity = models.IntegerField(default=1)
