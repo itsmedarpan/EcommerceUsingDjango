@@ -35,7 +35,10 @@ LOGIN_URL = '/login/'
 
 SESSION_COOKIE_AGE = 86400
 CART_SESSION_ID = 'cart'
-# Application definition
+STRIPE_API_KEY_PUBLISHABLE = ''
+STRIPE_API_KEY_HIDDEN = ''
+
+# Application definitiond
 
 INSTALLED_APPS = [
     'django.contrib.admin',
