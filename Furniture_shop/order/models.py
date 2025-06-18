@@ -28,7 +28,7 @@ class Order(models.Model):
     paid_amount = models.IntegerField(blank=True, null=True)
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED )
-
+    payment_intent = models.CharField(max_length=255, blank=True, null=True)
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name = 'items', on_delete=models.CASCADE)    

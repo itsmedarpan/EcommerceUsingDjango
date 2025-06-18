@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .cart import Cart
@@ -46,7 +47,8 @@ def update_cart(request, product_id, action):
 
 @login_required
 def checkout(request):
-    return render(request, 'cart/checkout.html')
+    pub_key = settings.STRIPE_API_KEY_PUBLISHABLE
+    return render(request, 'cart/checkout.html', {'pub_key': pub_key})
 
 def hx_menu_cart(request):
     return render(request, 'cart/menu_cart.html')
