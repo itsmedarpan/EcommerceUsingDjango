@@ -1,8 +1,9 @@
-
+import re
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render, redirect
+
 from product.models import Product, Category
 
 from .forms import SignUpForm
@@ -10,7 +11,7 @@ from .forms import SignUpForm
 def homepage(request):
     products = Product.objects.all()[0:8]
 
-    return render(request,'core/frontpage.html',{'products':products})
+    return render(request, 'core/frontpage.html', {'products': products})
 
 def signup(request):
     if request.method == 'POST':
@@ -22,10 +23,10 @@ def signup(request):
             login(request, user)
 
             return redirect('/')
-        
     else:
         form = SignUpForm()
-    return render(request, 'core/signup.html', {'form':form})
+
+    return render(request, 'core/signup.html', {'form': form})
 
 @login_required
 def myaccount(request):
@@ -40,14 +41,13 @@ def edit_myaccount(request):
         user.email = request.POST.get('email')
         user.username = request.POST.get('username')
         user.save()
+
         return redirect('myaccount')
     return render(request, 'core/edit_myaccount.html')
 
-
-
 def shop(request):
-    products = Product.objects.all()
     categories = Category.objects.all()
+    products = Product.objects.all()
 
     active_category = request.GET.get('category', '')
 
@@ -59,11 +59,10 @@ def shop(request):
     if query:
         products = products.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-
     context = {
-        'categories':categories,
-        'products':products,
-        'active_category':active_category
+        'categories': categories,
+        'products': products,
+        'active_category': active_category
     }
 
     return render(request, 'core/shop.html', context)
