@@ -12,7 +12,7 @@ class Order(models.Model):
         (ORDERED, 'Ordered'),
         (SHIPPED, 'Shipped')
     }
-    user = models.ForeignKey(User, related_name='oders', blank=True, null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='orders', blank=True, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length = 255)
     last_name = models.CharField(max_length=255)
     email = models.CharField(max_length=255)

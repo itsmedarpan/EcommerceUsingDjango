@@ -1,58 +1,58 @@
 {% extends 'core/base.html' %}
 
-{% block title %}My account{% endblock %}
+{% block title %}My Account{% endblock %}
 
 {% block content %}
 <div class="max-w-6xl mx-auto p-6">
-    <h1 class="mb-5 text-3xl">My account</h1>
+    <h1 class="mb-8 text-4xl font-bold text-gray-800">My Account</h1>
 
-    <div class="mb-6">
-        <strong>Name: </strong>{{ request.user.get_full_name }}<br>
-        <strong>Username: </strong>{{ request.user.username }}<br>
-        <strong>E-mail: </strong>{{ request.user.email }}<br>
+    <div class="mb-8 p-6 bg-gray-50 rounded-xl shadow-sm">
+        <h2 class="text-2xl font-semibold mb-4 text-[#6366f1]">Profile Information</h2>
+        <p class="text-gray-700 mb-2"><strong>Name:</strong> {{ request.user.get_full_name }}</p>
+        <p class="text-gray-700 mb-2"><strong>Username:</strong> {{ request.user.username }}</p>
+        <p class="text-gray-700 mb-2"><strong>Email:</strong> {{ request.user.email }}</p>
 
-        <a href="{% url 'edit_myaccount' %}" class="inline-block mt-4 py-4 px-6 rounded-xl text-white bg-purple-500">Edit</a>
+        <a href="{% url 'edit_myaccount' %}" class="inline-block mt-6 py-3 px-6 rounded-lg text-white bg-[#6366f1] hover:bg-[#4f46e5] transition">Edit Profile</a>
     </div>
 
-    <hr>
+    <hr class="my-10 border-gray-300">
 
-    <h2 class="my-6 text-xl">My orders</h2>
+    <h2 class="text-3xl font-semibold mb-6 text-gray-800">My Orders</h2>
 
-    {% for order in request.user.orders.all %}
-        <div class="w-full mb-6 p-6 flex flex-wrap bg-gray-100 rounded-xl">
-            <div class="mb-6 flex justify-between">
-                <a href="#">Order id: {{ order.id }}</a>
-            </div>
+    {% if request.user.orders.all %}
+        {% for order in request.user.orders.all %}
+            <div class="w-full mb-8 p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+                <div class="flex items-center justify-between mb-4">
+                    <a href="#" class="text-lg font-medium text-[#4f46e5] hover:underline">Order #{{ order.id }}</a>
+                    <span class="text-sm text-gray-400">Placed on {{ order.created_at|date:"M d, Y" }}</span>
+                </div>
 
-            <div class="mb-6 w-full">
-                {% for item in order.items.all %}
-                    <div class="product mb-6 flex pr-6">
-                        <a href="#" class="w-1/4">
-                            <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}">
-                        </a>
+                <div class="border-t pt-4 space-y-6">
+                    {% for item in order.items.all %}
+                        <div class="flex items-center">
+                            <a href="#" class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg border">
+                                <img class="object-cover w-full h-full" src="{{ item.product.get_thumbnail }}" alt="{{ item.product.name }}">
+                            </a>
 
-                        <div class="w-3/4 pl-6">
-                            <div class="flex justify-between">
-                                <a href="#" class="text-lg">{{ item.product.name }}</a>
-
-                                <p class="mb-6 pt-1 text-gray-400">${{ item.get_total_price }}</p>
-                            </div>
-
-                            <hr>
-
-                            <div class="mt-6">
-                                Quantity: {{ item.quantity }}
+                            <div class="ml-5 flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <a href="#" class="text-lg font-semibold text-gray-800 hover:text-[#4f46e5]">{{ item.product.name }}</a>
+                                    <p class="text-base text-gray-600">${{ item.get_total_price }}</p>
+                                </div>
+                                <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
 
-            <div>
-                <p class="text-lg">Date: {{ order.created_at }}</p>
-                <p class="text-lg">Total: ${{ order.get_total_price }}</p>
+                <div class="border-t mt-4 pt-4 flex items-center justify-between">
+                    <span class="font-medium text-lg text-gray-700">Order Total:</span>
+                    <span class="text-xl font-bold text-[#6366f1]">${{ order.get_total_price }}</span>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-500">You haven't placed any orders yet.</p>
+    {% endif %}
 </div>
 {% endblock %}

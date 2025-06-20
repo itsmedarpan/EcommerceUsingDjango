@@ -3,11 +3,12 @@ from django.conf.urls.static import static
 
 from django.contrib.auth import views
 from django.urls import path, include
-from .views import homepage, shop, signup, myaccount, edit_myaccount
+from .views import homepage, about, shop, signup, myaccount, edit_myaccount
 from product.views import product
 
 urlpatterns = [
     path('',homepage, name='homepage'),
+    path('about/', about, name='about'),
     path('shop/', shop, name='shop'),
     path('shop/<slug:slug>/', product, name='product'),
     path('signup/', signup, name='signup'),

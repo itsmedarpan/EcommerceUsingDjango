@@ -6,76 +6,105 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>{% block title %}{% endblock %} | Furniture Shop</title>
 </head>
-<body>
-    <nav class="border-b border-gray-300">
-        <div class="max-w-6xl mx-auto py-2 px-6 xl:px-0 flex items-center justify-between">
-            <div class="menu-left flex items-center space-x-6">
-                <a href="{% url 'homepage' %}" class="py4 text-lg text-purple-500 font-semibold">Furniture_shop</a>
-                <ul class="flex items-center space-x-4">
-                    <li><a href="{% url 'shop' %}">Shop</a></li>
-                    <li><a href="#">About</a></li>
+<body class="bg-white text-gray-800">
 
-                    {% if request.user.is_authenticated %}
-                    <li>
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="logout-button">Log out</button>
-                        </form>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
+<!-- Navbar -->
+<nav class="border-b border-gray-200 shadow-sm bg-white sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto py-4 px-6 xl:px-0 flex items-center justify-between">
+        <!-- Left Menu -->
+        <div class="flex items-center space-x-8">
+            <a href="{% url 'homepage' %}" class="text-2xl font-bold text-[#6366f1] hover:text-[#4f46e5] transition">Furniture_shop</a>
+            <ul class="hidden md:flex items-center space-x-6 text-[16px] font-medium">
+                <li><a href="{% url 'shop' %}" class="hover:text-[#4f46e5]">Shop</a></li>
+                <li><a href="{% url 'about' %}" class="hover:text-[#4f46e5]">About</a></li>
 
-            <div class="menu-right flex items-center space-x-4">
-                <a href="{% url 'myaccount' %}">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    </svg>
-                </a>
+                {% if request.user.is_authenticated %}
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="text-gray-600 hover:text-red-600">Log out</button>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
 
-                <div
-                hx-get="{% url 'hx_menu_cart' %}"
-                hx-trigger="update-menu-cart from:body"
-                hx-swap="innerHTML"
-                >
-            
+        <!-- Right Menu -->
+        <div class="flex items-center space-x-6">
+            <a href="{% url 'myaccount' %}" class="text-gray-600 hover:text-[#4f46e5] transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+            </a>
+
+            <div hx-get="{% url 'hx_menu_cart' %}"
+                 hx-trigger="update-menu-cart from:body"
+                 hx-swap="innerHTML">
                 {% include 'cart/menu_cart.html' %}
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+<!-- Main Content -->
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
 
-    <footer class="bg-gray-100">
-        <div class="max-w-6xl mx-auto py-10 px-6 xl:px-0 md:flex justfiy-between">
-            <div class="footer-left mb-12 md:mb-0">
-                <h2 class="mb-5 uppercase text-lg">About us</h2>
-
-                <p class="text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi recusandae ut eum dolore exercitationem id perspiciatis maxime, ratione, quod reprehenderit aperiam amet sit? Repellendus exercitationem nisi nam reprehenderit nihil deleniti.</p>
-            </div>
-            
-             <div class="footer-right mb-12 md:mb-0">
-                <h2 class="mb-5 uppercase text-lg">Social Links</h2>
-                
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-purple-500 hover:text-purple-800">Facebook</a></li>
-                    <li><a href="#" class="text-purple-500 hover:text-purple-800">Instagram</a></li>
-                    <li><a href="#" class="text-purple-500 hover:text-purple-800">Twitter</a></li>
-                    <li><a href="#" class="text-purple-500 hover:text-purple-800">Telegram</a></li>
-
-
-                </ul>
-            
-            </div>
+<!-- Footer -->
+<footer class="bg-gray-50 border-t border-gray-200 mt-16">
+    <div class="max-w-6xl mx-auto py-12 px-6 xl:px-0 md:flex justify-between space-y-10 md:space-y-0">
+        <div class="max-w-md">
+            <h2 class="mb-5 uppercase text-lg font-semibold text-gray-700">About us</h2>
+            <p class="text-gray-600 leading-relaxed">Discover beautifully crafted furniture pieces built to last. Quality, elegance, and affordable luxury for your home and office spaces.</p>
         </div>
 
-    </footer>
+        <div>
+    <h2 class="mb-5 uppercase text-lg font-semibold text-gray-700">Social Links</h2>
+    <ul class="space-y-3">
+        <li>
+            <a href="#" class="flex items-center space-x-2 text-[#6366f1] hover:text-[#4f46e5] transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5.084 3.797 9.29 8.675 9.88v-6.987h-2.61v-2.893h2.61V9.797c0-2.583 1.542-4.015 3.897-4.015 1.13 0 2.313.202 2.313.202v2.53h-1.303c-1.285 0-1.684.799-1.684 1.618v1.945h2.867l-.458 2.893h-2.41V21.88C18.203 21.29 22 17.084 22 12z"/>
+                </svg>
+                <span>Facebook</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex items-center space-x-2 text-[#6366f1] hover:text-[#4f46e5] transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9zm0 2h9A3.5 3.5 0 0 1 20 7.5v9a3.5 3.5 0 0 1-3.5 3.5h-9A3.5 3.5 0 0 1 4 16.5v-9A3.5 3.5 0 0 1 7.5 4zm9.25 1.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+                </svg>
+                <span>Instagram</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex items-center space-x-2 text-[#6366f1] hover:text-[#4f46e5] transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.29 20c7.547 0 11.675-6.155 11.675-11.49 0-.175 0-.349-.012-.522A8.18 8.18 0 0 0 22 5.924a8.233 8.233 0 0 1-2.357.637A4.075 4.075 0 0 0 21.448 4.4a8.19 8.19 0 0 1-2.605.975A4.107 4.107 0 0 0 15.448 4c-2.266 0-4.103 1.814-4.103 4.053 0 .317.036.626.105.922A11.65 11.65 0 0 1 3.184 4.868a4.026 4.026 0 0 0-.555 2.038c0 1.405.722 2.648 1.823 3.376a4.11 4.11 0 0 1-1.858-.51v.05c0 1.963 1.415 3.598 3.292 3.97a4.093 4.093 0 0 1-1.852.07 4.097 4.097 0 0 0 3.834 2.82A8.233 8.233 0 0 1 2 18.407a11.616 11.616 0 0 0 6.29 1.84"/>
+                </svg>
+                <span>Twitter</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex items-center space-x-2 text-[#6366f1] hover:text-[#4f46e5] transition">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M9.036 20.995c-.62 0-.512-.234-.725-.828l-1.8-5.928L19.5 6.75"/>
+                    <path d="M9.036 20.995c.474 0 .684-.218.948-.481l2.279-2.188-2.83-1.704"/>
+                    <path d="m11.663 16.442 6.417 4.74c.731.404 1.258.194 1.442-.678l2.61-12.234c.267-1.217-.463-1.732-1.175-1.43L3.138 11.355c-1.187.468-1.175 1.122-.204 1.406l5.766 1.803 13.37-8.36"/>
+                </svg>
+                <span>Telegram</span>
+            </a>
+        </li>
+    </ul>
+</div>
+    </div>
+</footer>
 
-    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
-    {% block scripts %}
-    {% endblock %}
+<script src="https://unpkg.com/htmx.org@1.7.0"></script>
+{% block scripts %}
+{% endblock %}
 </body>
 </html>
