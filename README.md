@@ -1,3 +1,4 @@
+markdown
 # Furniture Shop Ecommerce (Django)
 
 ![Project Banner Image](path/to/banner-image.png)  
@@ -23,97 +24,193 @@
 Furniture Shop is a Django-based ecommerce website for buying elegant, quality furniture.  
 This project showcases product listing, categories, user account management, and cart functionality — all built with Django and Tailwind CSS.
 
+> **Credit:** This project was inspired by and built following tutorials from [Code With Steins](https://www.youtube.com/@CodeWithSteins).
+
 While still a work in progress, it demonstrates key ecommerce concepts and a clean, responsive design.
 
 ---
 
 ## Features
 
-- Product listing with category filters and search  
-- User account profile editing  
-- Dynamic cart updates (using htmx)  
-- Image thumbnail generation for consistent product display  
-- Responsive design with Tailwind CSS  
-- Admin dashboard for product and category management  
+- **Product Catalog**: Browse furniture by categories with search functionality
+- **User Accounts**: Registration, login, and profile management
+- **Shopping Cart**: Add/remove items with dynamic updates using HTMX
+- **Responsive Design**: Mobile-friendly interface with Tailwind CSS
+- **Admin Dashboard**: Full CRUD operations for products/categories
+- **Image Processing**: Automatic thumbnail generation with Pillow
+- **Order Management**: View order history and status
 
 ---
 
 ## Tech Stack
 
-- Python 3.x  
-- Django 4.x  
-- Pillow (for image processing)  
-- Tailwind CSS (via CDN or installed)  
-- HTMX (for dynamic cart updates)  
-- SQLite (default, can be replaced with PostgreSQL or MySQL)  
+### Core
+- **Python 3.10+**
+- **Django 4.2**
+- **SQLite** (Development - easily swappable for PostgreSQL)
+
+### Frontend
+- **Tailwind CSS** (Styling)
+- **HTMX** (Dynamic cart interactions)
+- **Django Templating Engine**
+
+### Additional Packages
+- **Pillow** (Image processing)
+- **Django Crispy Forms** (Form rendering)
+- **Django Debug Toolbar** (Development)
 
 ---
 
 ## Models Diagram
 
-Below is a diagram showing the core database models and their relationships, generated using pydot:
+![Database Schema](path/to/models-diagram.png)  
+*Replace with your generated ER diagram*
 
-![Models Diagram](path/to/models-diagram.png)  
-*Replace this with your generated PNG from your pydot graph.*
+Key Models:
+```python
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
 
----
+class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='products/')
+    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True)
 
-## Installation
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_completed = models.BooleanField(default=False)
 
-1. Clone the repo:  
-   ```bash
-   git clone https://github.com/yourusername/furniture-shop.git
-   cd furniture-shop
-Create and activate a virtual environment:
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+Installation
+Prerequisites
+Python 3.10+
+
+pip package manager
+
+Virtual environment (recommended)
+
+Setup Steps
+Clone the repository:
 
 bash
-Copy
-Edit
+git clone https://github.com/yourusername/furniture-shop.git
+cd furniture-shop
+Create and activate virtual environment:
+
+bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+# Windows:
+venv\Scripts\activate
 Install dependencies:
 
 bash
-Copy
-Edit
 pip install -r requirements.txt
-Apply migrations:
+Configure environment variables:
+Create .env file in project root with:
+
+ini
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+Apply database migrations:
 
 bash
-Copy
-Edit
 python manage.py migrate
-Create a superuser for admin access:
+Create admin user:
 
 bash
-Copy
-Edit
 python manage.py createsuperuser
-Run the development server:
+Run development server:
 
 bash
-Copy
-Edit
 python manage.py runserver
-Open http://127.0.0.1:8000/ in your browser.
+Access the application:
+
+Shop: http://localhost:8000/
+
+Admin: http://localhost:8000/admin/
 
 Usage
-Use the search and category filters on the shop page to browse products.
+Customer Flow
+Browse Products: Use category filters or search bar
 
-Click a product to view details and add to your cart dynamically.
+View Details: Click on any product for full details
 
-Edit your account profile in the "My Account" section.
+Add to Cart: Items update dynamically using HTMX
 
-Admin users can add/edit products and categories via /admin.
+Checkout: Proceed through cart to place order
+
+Track Orders: View order history in user profile
+
+Admin Operations
+Access /admin with superuser credentials
+
+Manage:
+
+Products (add/edit/remove)
+
+Categories
+
+Orders
+
+Users
+
+Generate thumbnails automatically when adding product images
+
+Customization
+Update Tailwind styles in static/css/styles.css
+
+Modify templates in templates/ directory
+
+Add new product fields in products/models.py
 
 Screenshots
-<!-- Add screenshots here -->
-
-
+Feature	Preview Image
+Homepage	path/to/homepage.png
+Product Detail	path/to/detail.png
+Shopping Cart	path/to/cart.png
+Admin Dashboard	path/to/admin.png
+Replace paths with actual screenshot files
 
 Contributing
-Contributions, issues, and feature requests are welcome!
-Feel free to fork the repo and submit pull requests.
+Contributions are welcome! Here's how to contribute:
+
+Fork the repository
+
+Create your feature branch:
+
+bash
+git checkout -b feature/new-feature
+Commit your changes:
+
+bash
+git commit -m 'Add new feature'
+Push to the branch:
+
+bash
+git push origin feature/new-feature
+Open a pull request
+
+Development Tips:
+
+Run tests with python manage.py test
+
+Format code with Black: black .
+
+Check migrations with python manage.py makemigrations --dry-run
 
 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Acknowledgments
+Special thanks to Code With Steins for the excellent Django tutorials that inspired this project.
