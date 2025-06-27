@@ -65,7 +65,7 @@ Much appreciation for those resources!
 
 ## Models Diagram
 
-![Database Schema](screenshots\models-diagram.png)  
+![Database Schema](screenshots/models-diagram.png)  
 
 Installation
 Prerequisites
