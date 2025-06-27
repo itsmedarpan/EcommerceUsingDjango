@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from itertools import product
-
 from product.models import Product
 
 class Order(models.Model):
@@ -29,6 +28,7 @@ class Order(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED )
     payment_intent = models.CharField(max_length=255, blank=True, null=True)
+    
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name = 'items', on_delete=models.CASCADE)    

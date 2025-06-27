@@ -10,7 +10,6 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('name',)
-
     def __str__(self):
         return self.name
 
@@ -55,14 +54,35 @@ class Product(models.Model):
     #     thumbnail = File(thumb_io, name=image.name) 
     #     return thumbnail
 
+    # def make_thumbnail(self, image, size=(300, 300)):
+    #     print("Making thumbnail for:", image.name)
+    #     img = Image.open(image)
+    #     img = img.convert('RGB')
+    #     img.thumbnail(size)
+    
+    #     thumb_io = BytesIO()
+    #     img.save(thumb_io, 'JPEG', quality=85)
+    
+    #     thumbnail = File(thumb_io, name=image.name)
+    #     return thumbnail
+
     def make_thumbnail(self, image, size=(300, 300)):
         print("Making thumbnail for:", image.name)
         img = Image.open(image)
         img = img.convert('RGB')
-        img.thumbnail(size)
+    
+        img.thumbnail((max(size), max(size)))  # resize while maintaining aspect ratio, ensuring at least one side fits
+    
+        # Now crop to exact square center
+        left = (img.width - size[0]) / 2
+        top = (img.height - size[1]) / 2
+        right = (img.width + size[0]) / 2
+        bottom = (img.height + size[1]) / 2
+        img = img.crop((left, top, right, bottom))
     
         thumb_io = BytesIO()
         img.save(thumb_io, 'JPEG', quality=85)
     
-        thumbnail = File(thumb_io, name=image.name)
+        thumbnail = File(thumb_io, name=f"thumb_{image.name}")
         return thumbnail
+
