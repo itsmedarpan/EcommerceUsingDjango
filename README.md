@@ -27,8 +27,8 @@ A Django-based ecommerce web application for selling elegant, quality furniture 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/furniture-shop.git
-   cd furniture-shop
+   git clone https://github.com/itsmedarpan/django-ecommerce.git
+   cd Furniture_shop
    ```
 
 2. **Set up virtual environment**
@@ -61,7 +61,7 @@ A Django-based ecommerce web application for selling elegant, quality furniture 
    python manage.py runserver
    ```
 
-Visit `http://localhost:8000/` for the shop and `http://localhost:8000/admin/` for admin panel.
+Visit `http://localhost:8000/` for the landing page and `http://localhost:8000/admin/` for admin panel.
 
 ## Usage
 
@@ -76,13 +76,6 @@ Visit `http://localhost:8000/` for the shop and `http://localhost:8000/admin/` f
 - Process customer orders
 - Automatic thumbnail generation for product images
 
-## Contributing
-
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -m 'Add new feature'`
-4. Push to branch: `git push origin feature/new-feature`
-5. Open a pull request
 
 ## License
 
