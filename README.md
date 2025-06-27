@@ -1,8 +1,7 @@
 markdown
 # Furniture Shop Ecommerce (Django)
 
-![Project Banner Image](![image](https://github.com/user-attachments/assets/c1e36cb3-b32d-402b-a2b2-446a8acee2ec)
-)  
+![Product Images](screenshots/image-2.png)
 *Add a catchy banner or screenshot of your homepage here*
 
 ---
