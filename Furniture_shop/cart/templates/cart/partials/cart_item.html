@@ -1,37 +1,45 @@
 {% if item %}
-    <div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}">
-        <a href="{% url 'product' item.product.slug %}" class="w-1/4">
-            <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}">
-        </a>
+<div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}">
+    <a href="{% url 'product' item.product.slug %}" class="w-1/4 group overflow-hidden rounded-xl">
+        <img 
+            class="w-full h-auto object-cover rounded-xl transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:shadow-lg" 
+            src="{{ item.product.get_thumbnail }}" 
+            alt="{{ item.product.name }}"
+        >
+    </a>
 
-        <div class="w-3/4 pl-6">
-            <div class="flex justify-between">
-                <a href="{% url 'product' item.product.slug %}" class="text-lg">{{ item.product.name }}</a>
+    <div class="w-3/4 pl-6 flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+            <a href="{% url 'product' item.product.slug %}" class="text-lg font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-300">
+                {{ item.product.name }}
+            </a>
 
-                <span class="mb-6 pt-1 text-gray-400">${{ item.total_price }}</span>
-            </div>
+            <span class="mb-6 pt-1 text-gray-400 font-mono">${{ item.total_price }}</span>
+        </div>
 
-            <hr>
+        <hr class="my-4 border-gray-300">
 
-            <div class="quantity mt-6 flex items-center space-x-4">
-                <a 
-                    class="p-3 bg-gray-100"
-                    hx-get="{% url 'update_cart' item.product.id 'decrement' %}"
-                    hx-target="#cart-item-{{ item.product.id }}"
-                    hx-swap="outerHTML"
-                >
-                    -
-                </a>
-                <span>{{ item.quantity }}</span>
-                <a 
-                    class="p-3 bg-gray-100"
-                    hx-get="{% url 'update_cart' item.product.id 'increment' %}"
-                    hx-target="#cart-item-{{ item.product.id }}"
-                    hx-swap="outerHTML"
-                >
-                    +
-                </a>
-            </div>
+        <div class="quantity mt-4 flex items-center space-x-4">
+            <a 
+                class="p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer select-none"
+                hx-get="{% url 'update_cart' item.product.id 'decrement' %}"
+                hx-target="#cart-item-{{ item.product.id }}"
+                hx-swap="outerHTML"
+                aria-label="Decrease quantity"
+            >
+                –
+            </a>
+            <span class="text-lg font-medium text-gray-700 select-none">{{ item.quantity }}</span>
+            <a 
+                class="p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer select-none"
+                hx-get="{% url 'update_cart' item.product.id 'increment' %}"
+                hx-target="#cart-item-{{ item.product.id }}"
+                hx-swap="outerHTML"
+                aria-label="Increase quantity"
+            >
+                +
+            </a>
         </div>
     </div>
+</div>
 {% endif %}
