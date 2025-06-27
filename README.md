@@ -24,7 +24,7 @@ markdown
 Furniture Shop is a Django-based ecommerce website for buying elegant, quality furniture.  
 This project showcases product listing, categories, user account management, and cart functionality — all built with Django and Tailwind CSS.
 
-> **Credit:** This project was inspired by and built following tutorials from [Code With Steins](https://www.youtube.com/@CodeWithSteins).
+> **Credit:** This project was inspired by and built following tutorials from [Code With Steins](https://www.youtube.com/@CodeWithStein).
 
 While still a work in progress, it demonstrates key ecommerce concepts and a clean, responsive design.
 
