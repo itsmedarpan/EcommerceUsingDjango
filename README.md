@@ -1,193 +1,93 @@
-markdown
-# Furniture Shop Ecommerce (Django)
+# Furniture Shop Ecommerce
 
 ![Product Images](screenshots/image-2.png)
 
----
-
-## Table of Contents
-- [About](#about)  
-- [Features](#features)  
-- [Tech Stack](#tech-stack)  
-- [Models Diagram](#models-diagram)  
-- [Installation](#installation)  
-- [Usage](#usage)  
-- [Screenshots](#screenshots)  
-- [Contributing](#contributing)  
-- [License](#license)  
-
----
-
-## About
-
-**Furniture Shop** is a Django-based ecommerce web application for selling elegant, quality furniture.
-
-While still a work in progress, this project demonstrates key ecommerce concepts and a clean, modern design that’s fully responsive across devices.
----
+A Django-based ecommerce web application for selling elegant, quality furniture with modern design and responsive interface.
 
 ## Features
 
-- **Product Catalog**: Browse furniture by categories with search functionality
-- **User Accounts**: Registration, login, and profile management
-- **Shopping Cart**: Add/remove items with dynamic updates using HTMX
-- **Responsive Design**: Mobile-friendly interface with Tailwind CSS
-- **Admin Dashboard**: Full CRUD operations for products/categories
-- **Image Processing**: Automatic thumbnail generation with Pillow
-- **Order Management**: View order history and status
-
----
-
-### 📌 Credits
-
-This project was inspired by and built while following the excellent Django ecommerce tutorials from  
-[**Code With Stein**](https://www.youtube.com/@CodeWithStein).  
-Much appreciation for those resources!
-
----
+- **Product Catalog** - Browse furniture by categories with search functionality
+- **User Management** - Registration, login, and profile management
+- **Shopping Cart** - Dynamic cart updates using HTMX
+- **Responsive Design** - Mobile-friendly interface with Tailwind CSS
+- **Admin Dashboard** - Full CRUD operations for products and categories
+- **Order Management** - View order history and status tracking
 
 ## Tech Stack
 
-### Core
-- **Python 3.13.2**
-- **Django 5.2.1**
-- **SQLite** (Development - easily swappable for PostgreSQL)
-
-### Frontend
-- **Tailwind CSS** (Styling)
-- **HTMX** (Dynamic cart interactions)
-- **Django Templating Engine**
-
-### Additional Packages
-- **Pillow** (Image processing)
-- **stripe** (Payment)
-
----
+**Backend:** Python 3.13.2, Django 5.2.1, SQLite  
+**Frontend:** Tailwind CSS, HTMX, Django Templates  
+**Additional:** Pillow (Image processing), Stripe (Payments)
 
 ## Models Diagram
 
-![Database Schema](screenshots/models-diagram.png)  
+![Database Schema](screenshots/models-diagram.png)
 
-Installation
-Prerequisites
-Python 3.10+
+## Installation
 
-pip package manager
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/furniture-shop.git
+   cd furniture-shop
+   ```
 
-Virtual environment (recommended)
+2. **Set up virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Linux/macOS
+   # or venv\Scripts\activate  # Windows
+   ```
 
-Setup Steps
-Clone the repository:
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-bash
-git clone https://github.com/yourusername/furniture-shop.git
-cd furniture-shop
-Create and activate virtual environment:
+4. **Configure environment**
+   Create `.env` file:
+   ```ini
+   SECRET_KEY=your_django_secret_key
+   DEBUG=True
+   ```
 
-bash
-python -m venv venv
-# Linux/macOS:
-source venv/bin/activate
-# Windows:
-venv\Scripts\activate
-Install dependencies:
+5. **Set up database**
+   ```bash
+   python manage.py migrate
+   python manage.py createsuperuser
+   ```
 
-bash
-pip install -r requirements.txt
-Configure environment variables:
-Create .env file in project root with:
+6. **Run the server**
+   ```bash
+   python manage.py runserver
+   ```
 
-ini
-SECRET_KEY=your_django_secret_key
-DEBUG=True
-Apply database migrations:
+Visit `http://localhost:8000/` for the shop and `http://localhost:8000/admin/` for admin panel.
 
-bash
-python manage.py migrate
-Create admin user:
+## Usage
 
-bash
-python manage.py createsuperuser
-Run development server:
+**Customer Features:**
+- Browse and search products by category
+- Add items to cart with dynamic updates
+- Complete checkout and track orders
+- Manage user profile and order history
 
-bash
-python manage.py runserver
-Access the application:
+**Admin Features:**
+- Manage products, categories, and orders
+- Process customer orders
+- Automatic thumbnail generation for product images
 
-Shop: http://localhost:8000/
+## Contributing
 
-Admin: http://localhost:8000/admin/
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -m 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
+5. Open a pull request
 
-Usage
-Customer Flow
-Browse Products: Use category filters or search bar
+## License
 
-View Details: Click on any product for full details
+This project is licensed under the MIT License.
 
-Add to Cart: Items update dynamically using HTMX
+## Credits
 
-Checkout: Proceed through cart to place order
-
-Track Orders: View order history in user profile
-
-Admin Operations
-Access /admin with superuser credentials
-
-Manage:
-
-Products (add/edit/remove)
-
-Categories
-
-Orders
-
-Users
-
-Generate thumbnails automatically when adding product images
-
-Customization
-Update Tailwind styles in static/css/styles.css
-
-Modify templates in templates/ directory
-
-Add new product fields in products/models.py
-
-Screenshots
-Feature	Preview Image
-Homepage	path/to/homepage.png
-Product Detail	path/to/detail.png
-Shopping Cart	path/to/cart.png
-Admin Dashboard	path/to/admin.png
-Replace paths with actual screenshot files
-
-Contributing
-Contributions are welcome! Here's how to contribute:
-
-Fork the repository
-
-Create your feature branch:
-
-bash
-git checkout -b feature/new-feature
-Commit your changes:
-
-bash
-git commit -m 'Add new feature'
-Push to the branch:
-
-bash
-git push origin feature/new-feature
-Open a pull request
-
-Development Tips:
-
-Run tests with python manage.py test
-
-Format code with Black: black .
-
-Check migrations with python manage.py makemigrations --dry-run
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Acknowledgments
-Special thanks to Code With Steins for the excellent Django tutorials that inspired this project.
+Built following tutorials from [Code With Stein](https://www.youtube.com/@CodeWithStein). Thanks for the excellent Django ecommerce resources!
