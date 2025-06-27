@@ -2,7 +2,6 @@ markdown
 # Furniture Shop Ecommerce (Django)
 
 ![Product Images](screenshots/image-2.png)
-*Add a catchy banner or screenshot of your homepage here*
 
 ---
 
@@ -21,13 +20,9 @@ markdown
 
 ## About
 
-Furniture Shop is a Django-based ecommerce website for buying elegant, quality furniture.  
-This project showcases product listing, categories, user account management, and cart functionality — all built with Django and Tailwind CSS.
+**Furniture Shop** is a Django-based ecommerce web application for selling elegant, quality furniture.
 
-> **Credit:** This project was inspired by and built following tutorials from [Code With Steins](https://www.youtube.com/@CodeWithStein).
-
-While still a work in progress, it demonstrates key ecommerce concepts and a clean, responsive design.
-
+While still a work in progress, this project demonstrates key ecommerce concepts and a clean, modern design that’s fully responsive across devices.
 ---
 
 ## Features
@@ -42,11 +37,19 @@ While still a work in progress, it demonstrates key ecommerce concepts and a cle
 
 ---
 
+### 📌 Credits
+
+This project was inspired by and built while following the excellent Django ecommerce tutorials from  
+[**Code With Stein**](https://www.youtube.com/@CodeWithStein).  
+Much appreciation for those resources!
+
+---
+
 ## Tech Stack
 
 ### Core
-- **Python 3.10+**
-- **Django 4.2**
+- **Python 3.13.2**
+- **Django 5.2.1**
 - **SQLite** (Development - easily swappable for PostgreSQL)
 
 ### Frontend
@@ -56,40 +59,14 @@ While still a work in progress, it demonstrates key ecommerce concepts and a cle
 
 ### Additional Packages
 - **Pillow** (Image processing)
-- **Django Crispy Forms** (Form rendering)
-- **Django Debug Toolbar** (Development)
+- **stripe** (Payment)
 
 ---
 
 ## Models Diagram
 
-![Database Schema](path/to/models-diagram.png)  
-*Replace with your generated ER diagram*
+![Database Schema](screenshots\models-diagram.png)  
 
-Key Models:
-```python
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
-
-class Product(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='products/')
-    thumbnail = models.ImageField(upload_to='thumbnails/', blank=True)
-
-class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_completed = models.BooleanField(default=False)
-
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
 Installation
 Prerequisites
 Python 3.10+

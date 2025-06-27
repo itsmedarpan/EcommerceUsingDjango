@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'product',
     'cart',
     'order',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+GRAPH_MODELS = {
+    'group_models': True,
+    'app_labels': ["order", "product"],
+}
