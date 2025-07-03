@@ -37,9 +37,8 @@
                             <div class="ml-5 flex-1">
                                 <div class="flex items-center justify-between mb-1">
                                     <a href="#" class="text-lg font-semibold text-gray-800 hover:text-[#4f46e5]">{{ item.product.name }}</a>
-                                    <p class="text-base text-gray-600">${{ item.get_total_price }}</p>
+                                    <span class="text-base text-gray-400">{{ item.product.get_display_price|floatformat:2 }} x {{ item.quantity }}</span>
                                 </div>
-                                <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
                             </div>
                         </div>
                     {% endfor %}
@@ -57,7 +56,7 @@
                 </div>
                 <div class="border-t mt-4 pt-4 flex items-center justify-between">
                     <span class="font-medium text-lg text-gray-700">Order Total:</span>
-                    <span class="text-xl font-bold text-[#6366f1]">${{ order.get_total_price }}</span>
+                    <span class="text-xl font-bold text-[#6366f1]">${{ order.get_order_display_price|floatformat:2 }}</span>
                 </div>
             </div>
         {% endfor %}

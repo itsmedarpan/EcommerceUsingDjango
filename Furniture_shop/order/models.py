@@ -28,6 +28,12 @@ class Order(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED )
     payment_intent = models.CharField(max_length=255, blank=True, null=True)
+
+    def get_total_price(self):
+        return sum(item.price * item.quantity for item in self.items.all())
+
+    def get_order_display_price(self):
+        return self.get_total_price() / 100
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
