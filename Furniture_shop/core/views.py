@@ -1,6 +1,7 @@
 import re
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
 
@@ -33,7 +34,11 @@ def signup(request):
 
 @login_required
 def myaccount(request):
-    return render(request, 'core/myaccount.html')
+    orders = request.user.orders.all().order_by('-created_at')
+    paginator = Paginator(orders, 10)  # Show 10 orders per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'core/myaccount.html', {'page_obj': page_obj})
 
 @login_required
 def edit_myaccount(request):

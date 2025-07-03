@@ -19,8 +19,8 @@
 
     <h2 class="text-3xl font-semibold mb-6 text-gray-800">My Orders</h2>
 
-    {% if request.user.orders.all %}
-        {% for order in request.user.orders.all %}
+    {% if page_obj.object_list %}
+        {% for order in page_obj.object_list %}
             <div class="w-full mb-8 p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
                 <div class="flex items-center justify-between mb-4">
                     <a href="#" class="text-lg font-medium text-[#4f46e5] hover:underline">Order #{{ order.id }}</a>
@@ -51,6 +51,27 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="flex justify-center mt-8">
+            <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 rounded-l-md">Previous</a>
+                {% else %}
+                    <span class="px-4 py-2 border border-gray-200 bg-gray-50 text-gray-400 rounded-l-md cursor-not-allowed">Previous</span>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="px-4 py-2 border-t border-b border-gray-300 bg-purple-100 text-purple-700 font-semibold">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}" class="px-4 py-2 border-t border-b border-gray-300 bg-white text-gray-700 hover:bg-gray-100">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 rounded-r-md">Next</a>
+                {% else %}
+                    <span class="px-4 py-2 border border-gray-200 bg-gray-50 text-gray-400 rounded-r-md cursor-not-allowed">Next</span>
+                {% endif %}
+            </nav>
+        </div>
     {% else %}
         <p class="text-gray-500">You haven't placed any orders yet.</p>
     {% endif %}

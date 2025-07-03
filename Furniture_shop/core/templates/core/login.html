@@ -1,48 +1,47 @@
-        {% extends 'core/base.html' %}
+{% extends 'core/base.html' %}
         {% block title %}Log in{% endblock %}
 
         {% block content %}
-        
-        <div class="max-w-lg mx-auto flex flex-wrap p-6">
-            <div class="w-full bg-gray-100 p-6 rounded-xl">
-                <h1 class="mb-6 text-2xl">Log in</h1>
-                <form method="post" action="." class="space-y-3">
-                    {% csrf_token %}
-                    <div>
-                        <lable>Username</lable>
-                        <input type="text" name="username" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
-
-                    </div>
-
-                    <div>
-                        <lable>Password</lable>
-                        <input type="password" name="password" class="w-full mt-2 py-4 px-6 bg-white rounded-xl">
-                        
-                    </div>
-                   
-                    {% if form.errors %}
-                    {% for field in form %}
-                        {% for error in field.errors %}
-                    <div class="p-6 bg-red-200 text-red-800 rounded-xl">
-                        <p>{{error|escape}}</p>
-                    </div>
-                        {% endfor %}
-                   
-                    {% endfor %}
-
-                    {% for error in form.non_field_errors %}
-                        <div class="p-6 bg-red-200 text-red-800 rounded-xl">
-                            <p>{{error|escape}}</p>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                   
-                    <div>
-                       <button type="submit" class="py-4 px-6 rounded-xl text-white bg-purple-500 hover:bg-purple-700">Submit</button>
-                    </div>
-
-
-                </form>
+        <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 py-12 px-4 sm:px-6 lg:px-8">
+          <div class="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-lg p-8">
+            <div class="text-center">
+              <h1 class="text-3xl font-extrabold text-gray-800 mb-2">Sign in to your account</h1>
+              <p class="text-gray-500">Welcome back! Please enter your credentials.</p>
             </div>
+            <form method="post" action="." class="mt-8 space-y-6">
+              {% csrf_token %}
+              <div class="rounded-md shadow-sm -space-y-px">
+                <div class="mb-4">
+                  <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                  <input id="username" name="username" type="text" autocomplete="username" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+                </div>
+                <div class="mb-2">
+                  <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                  <input id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+                </div>
+              </div>
+              {% if form.errors %}
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <div class="p-4 bg-red-200 text-red-800 rounded-xl mb-2">
+                      <p>{{ error|escape }}</p>
+                    </div>
+                  {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                  <div class="p-4 bg-red-200 text-red-800 rounded-xl mb-2">
+                    <p>{{ error|escape }}</p>
+                  </div>
+                {% endfor %}
+              {% endif %}
+              <div>
+                <button type="submit" class="w-full flex justify-center py-4 px-6 rounded-xl text-white bg-purple-500 hover:bg-purple-700 font-semibold transition">Sign In</button>
+              </div>
+            </form>
+            <div class="mt-6 text-center">
+              <span class="text-gray-600">Don't have an account?</span>
+              <a href="{% url 'signup' %}" class="ml-2 text-purple-600 hover:text-purple-800 font-semibold transition">Create Account</a>
+            </div>
+          </div>
         </div>
         {% endblock %}
