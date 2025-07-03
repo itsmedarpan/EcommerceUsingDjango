@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block title %}Payment Successful{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto py-16 text-center">
+    <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-6">
+        <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+    </div>
+    <h1 class="text-3xl font-bold text-gray-800 mb-4">Thank you for your purchase!</h1>
+    <p class="text-lg text-gray-600 mb-6">Your payment was successful and your order has been received.<br>We will contact you soon with shipping details.</p>
+    <a href="/" class="inline-block px-8 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold transition">Back to Home</a>
+</div>
+{% endblock %}

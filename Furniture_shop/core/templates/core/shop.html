@@ -1,38 +1,60 @@
-        {% extends 'core/base.html' %}
-        {% block title %}Shop{% endblock %}
+{% extends 'core/base.html' %}
+{% block title %}Shop{% endblock %}
 
-        {% block content %}
-        
-        <div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
-            <div class="filters w-full lg:w-1/4">
-                <h3 class="mb-3 text-xl uppercase">Search</h3>
-                <form method="get" action=".">
-                    <div class="flex">
-                        <input type="text" name="query" class="p-4 bg-gray-100 border-0" placeholder="Search...">
-                        <button class="p-4 bg-gray-100 border-0">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                            </svg>
+{% block content %}
+<div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <aside class="filters w-full lg:w-1/4 bg-white rounded-2xl shadow p-6 mb-8 lg:mb-0">
+            <h3 class="mb-3 text-xl uppercase font-bold text-slate-700">Search</h3>
+            <form method="get" action=".">
+                <div class="flex">
+                    <input type="text" name="query" class="p-3 bg-gray-100 border-0 rounded-l-md w-full focus:outline-none" placeholder="Search...">
+                    <button class="p-3 bg-purple-600 text-white rounded-r-md hover:bg-purple-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
 
-                        </button>
-                    </div>
-                </form>
+            <h3 class="mt-8 mb-3 text-xl uppercase font-bold text-slate-700">Categories</h3>
+            <ul class="space-y-2">
+                <li><a href="{% url 'shop' %}" class="block py-1 px-2 rounded-md {% if not active_category %}text-purple-600 font-semibold bg-purple-50{% else %}text-gray-600 hover:bg-gray-100{% endif %}">All categories</a></li>
+                {% for category in categories %}
+                <li><a href="{% url 'shop' %}?category={{ category.slug }}" class="block py-1 px-2 rounded-md {% if category.slug == active_category %}text-purple-600 font-semibold bg-purple-50{% else %}text-gray-600 hover:bg-gray-100{% endif %}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
 
-                <h3 class="mt-6 mb-3 text-xl uppercase">Categories</h3>
-                <ul class="space-y-2">
-                    <li><a href="{% url 'shop' %}" class="{% if not active_category %}text-purple-500{% else %}text-gray-500{% endif %}">All categories</a></li>
-                    {% for category in categories %}
-                    <li><a href="{% url 'shop' %}?category={{ category.slug }}"  class="{% if category.slug == active_category %}text-purple-500{% else %}text-gray-500{% endif %}">{{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="products w-full lg:w-3/4 -mt-4 flex items-center flex-wrap">
-
+        <!-- Products Grid -->
+        <section class="products w-full lg:w-3/4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {% for product in products %}
                     {% include 'product/partials/product_list_item.html' %}
-                
+                {% empty %}
+                    <div class="w-full text-center py-16 col-span-full">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-100 rounded-full mb-4">
+                            <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-2">No products found</h3>
+                        <p class="text-slate-600">Try a different search or category.</p>
+                    </div>
                 {% endfor %}
-
             </div>
-        </div>
-        {% endblock %}
+        </section>
+    </div>
+</div>
+
+<style>
+.products > * {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.products > *:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+</style>
+{% endblock %}

@@ -70,19 +70,17 @@ class Product(models.Model):
         print("Making thumbnail for:", image.name)
         img = Image.open(image)
         img = img.convert('RGB')
-    
-        img.thumbnail((max(size), max(size)))  # resize while maintaining aspect ratio, ensuring at least one side fits
-    
-        # Now crop to exact square center
-        left = (img.width - size[0]) / 2
-        top = (img.height - size[1]) / 2
-        right = (img.width + size[0]) / 2
-        bottom = (img.height + size[1]) / 2
-        img = img.crop((left, top, right, bottom))
-    
+
+        # Create a white background
+        background = Image.new('RGB', size, (255, 255, 255))
+        # Resize image to fit within size, maintaining aspect ratio
+        img.thumbnail(size, Image.LANCZOS)
+        # Center the image on the background
+        offset = ((size[0] - img.width) // 2, (size[1] - img.height) // 2)
+        background.paste(img, offset)
+
         thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
-    
+        background.save(thumb_io, 'JPEG', quality=85)
         thumbnail = File(thumb_io, name=f"thumb_{image.name}")
         return thumbnail
 
