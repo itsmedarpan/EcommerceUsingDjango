@@ -2,27 +2,96 @@
 {% block title %}Order Receipt{% endblock %}
 {% block content %}
 <div class="max-w-2xl mx-auto py-10">
-    <div class="receipt bg-white p-8 rounded-xl shadow-md">
-        <h2 class="text-2xl font-bold mb-2">Order Receipt</h2>
-        <p class="mb-2 text-gray-600">Order #: {{ order.id }}</p>
-        <p class="mb-2 text-gray-600">Placed on: {{ order.created_at|date:"M d, Y H:i" }}</p>
-        <p class="mb-2 text-gray-600">Status: {{ order.get_status_display }}</p>
+    <div class="receipt bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+        <div class="flex flex-col items-center mb-6">
+            <span class="text-3xl font-extrabold text-[#6366f1] tracking-wide">Furniture Shop, Biratnagar</span>
+            <span class="text-base text-gray-500 mt-1">Main Road, Biratnagar, Nepal &bull; +977-9812345678</span>
+            <span class="text-base text-gray-500">info@furnitureshop.com</span>
+        </div>
+        <div class="flex justify-between items-center mb-4">
+            <span class="font-semibold text-gray-700">Order Receipt</span>
+            <span class="text-xs text-gray-400">{{ order.created_at|date:"M d, Y H:i" }}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mb-4 text-sm">
+            <div class="flex flex-col break-all">
+                <span class="font-semibold text-gray-700">Order ID:</span>
+                <span class="text-gray-600 text-xs bg-gray-100 rounded px-2 py-1 mt-1 select-all">#{{ order.order_uuid }}</span>
+            </div>
+            <div class="flex flex-col break-all">
+                <span class="font-semibold text-gray-700">Payment ID:</span>
+                <span class="text-gray-600 text-xs bg-gray-100 rounded px-2 py-1 mt-1 select-all">{{ order.payment_intent|default:'N/A' }}</span>
+            </div>
+            <div><span class="font-semibold text-gray-700">Status:</span> <span class="text-gray-600">{{ order.get_status_display }}</span></div>
+            <div><span class="font-semibold text-gray-700">Customer:</span> <span class="text-gray-600">{{ order.first_name }} {{ order.last_name }}</span></div>
+            <div><span class="font-semibold text-gray-700">Email:</span> <span class="text-gray-600">{{ order.email }}</span></div>
+            <div><span class="font-semibold text-gray-700">Phone:</span> <span class="text-gray-600">{{ order.phone|default:'N/A' }}</span></div>
+            <div class="col-span-2"><span class="font-semibold text-gray-700">Shipping Address:</span> <span class="text-gray-600">{{ order.address }}, {{ order.place }}, {{ order.zipcode }}</span></div>
+        </div>
         <hr class="my-4">
-        <h3 class="text-lg font-semibold mb-2">Items:</h3>
-        <ul class="mb-4">
+        <h3 class="text-lg font-semibold mb-2 text-gray-800">Order Items</h3>
+        <ul class="mb-4 divide-y divide-gray-100">
             {% for item in order.items.all %}
-            <li class="flex justify-between mb-2">
-                <span>{{ item.product.name }} (x{{ item.quantity }})</span>
-                <span>{{ item.product.get_display_price|floatformat:2 }}</span>
+            <li class="flex justify-between py-2">
+                <span>{{ item.product.name }} <span class="text-gray-400">(x{{ item.quantity }})</span></span>
+                <span class="text-gray-700">{{ item.product.get_display_price|floatformat:2 }}</span>
             </li>
             {% endfor %}
         </ul>
         <hr class="my-4">
-        <div class="flex justify-between font-bold text-lg">
+        <div class="flex justify-between font-bold text-lg mb-2">
             <span>Total:</span>
             <span>{{ order.get_order_display_price|floatformat:2 }}</span>
         </div>
+        <div class="text-xs text-gray-400 mt-6 text-center">This receipt is system generated and valid for order authentication at Furniture Shop, Biratnagar.</div>
         <button onclick="window.print()" class="mt-6 px-6 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition">Print Receipt</button>
     </div>
 </div>
+{% endblock %}
+{% block styles %}
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+header {
+    animation: fadeIn 0.7s ease-out;
+}
+.products > * {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.products > *:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+/* Print only receipt on print */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  .receipt, .receipt * {
+    visibility: visible !important;
+  }
+  .receipt {
+    position: absolute !important;
+    left: 0; top: 0;
+    width: 100% !important;
+    background: white !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .select-all {
+    user-select: all !important;
+    word-break: break-all !important;
+  }
+}
+.select-all {
+  user-select: all;
+  word-break: break-all;
+}
+.break-all {
+  word-break: break-all;
+}
+</style>
 {% endblock %}

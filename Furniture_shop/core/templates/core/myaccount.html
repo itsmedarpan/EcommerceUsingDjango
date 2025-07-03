@@ -6,13 +6,29 @@
 <div class="max-w-6xl mx-auto p-6">
     <h1 class="mb-8 text-4xl font-bold text-gray-800">My Account</h1>
 
-    <div class="mb-8 p-6 bg-gray-50 rounded-xl shadow-sm">
-        <h2 class="text-2xl font-semibold mb-4 text-[#6366f1]">Profile Information</h2>
-        <p class="text-gray-700 mb-2"><strong>Name:</strong> {{ request.user.get_full_name }}</p>
-        <p class="text-gray-700 mb-2"><strong>Username:</strong> {{ request.user.username }}</p>
-        <p class="text-gray-700 mb-2"><strong>Email:</strong> {{ request.user.email }}</p>
-
-        <a href="{% url 'edit_myaccount' %}" class="inline-block mt-6 py-3 px-6 rounded-lg text-white bg-[#6366f1] hover:bg-[#4f46e5] transition">Edit Profile</a>
+    <!-- Profile Card -->
+    <div class="mb-8 p-0 bg-gradient-to-r from-[#6366f1] to-[#4f46e5] rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row items-center">
+        <div class="flex-shrink-0 flex items-center justify-center w-full md:w-56 h-56 bg-white/10">
+            <div class="w-32 h-32 rounded-full bg-white flex items-center justify-center shadow-lg border-4 border-[#6366f1]">
+                <svg class="w-20 h-20 text-[#6366f1]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM4.5 19.5a7.5 7.5 0 0 1 15 0v.25a2.25 2.25 0 0 1-2.25 2.25h-10.5A2.25 2.25 0 0 1 4.5 19.75v-.25Z" />
+                </svg>
+            </div>
+        </div>
+        <div class="flex-1 p-8 text-white">
+            <h2 class="text-2xl font-bold mb-2">{{ request.user.get_full_name|default:request.user.username }}</h2>
+            <div class="flex flex-col gap-2 mb-4">
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold">Username:</span>
+                    <span class="opacity-90">{{ request.user.username }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-semibold">Email:</span>
+                    <span class="opacity-90">{{ request.user.email }}</span>
+                </div>
+            </div>
+            <a href="{% url 'edit_myaccount' %}" class="inline-block mt-4 py-3 px-6 rounded-lg text-[#6366f1] bg-white font-semibold hover:bg-[#e0e7ff] transition">Edit Profile</a>
+        </div>
     </div>
 
     <hr class="my-10 border-gray-300">

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from itertools import product
 from product.models import Product
+import uuid
 
 class Order(models.Model):
     ORDERED = 'ordered'
@@ -28,6 +29,7 @@ class Order(models.Model):
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=ORDERED )
     payment_intent = models.CharField(max_length=255, blank=True, null=True)
+    order_uuid = models.UUIDField(null=False, blank=False, unique=True, editable=False, default=uuid.uuid4)
 
     def get_total_price(self):
         return sum(item.price * item.quantity for item in self.items.all())
