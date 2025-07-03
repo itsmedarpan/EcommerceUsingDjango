@@ -31,6 +31,7 @@ def update_cart(request, product_id, action):
             'product':{
                 'id': product.id,
                 'name': product.name,
+                'slug': product.slug,  # <-- Added slug here
                 'image': product.image,
                 'get_thumbnail': product.get_thumbnail(),
                 'price': product.price,
@@ -41,7 +42,7 @@ def update_cart(request, product_id, action):
     else:
         item = None
     response = render(request, 'cart/partials/cart_item.html', {'item': item})
-    response['HX-Trigger'] = 'update_menu_cart'
+    response['HX-Trigger'] = 'update-menu-cart'  # changed to match template event
 
     return response
 
