@@ -3,6 +3,7 @@ import stripe
 
 from django.conf import settings
 from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
 
 from cart.cart import Cart
 
@@ -64,3 +65,7 @@ def start_order(request):
     cart.clear()
 
     return JsonResponse({'session': session, 'order': payment_intent})
+
+def order_receipt(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'order/receipt.html', {'order': order})

@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Order Receipt{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto py-10">
+    <div class="receipt bg-white p-8 rounded-xl shadow-md">
+        <h2 class="text-2xl font-bold mb-2">Order Receipt</h2>
+        <p class="mb-2 text-gray-600">Order #: {{ order.id }}</p>
+        <p class="mb-2 text-gray-600">Placed on: {{ order.created_at|date:"M d, Y H:i" }}</p>
+        <p class="mb-2 text-gray-600">Status: {{ order.get_status_display }}</p>
+        <hr class="my-4">
+        <h3 class="text-lg font-semibold mb-2">Items:</h3>
+        <ul class="mb-4">
+            {% for item in order.items.all %}
+            <li class="flex justify-between mb-2">
+                <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                <span>{{ item.product.get_display_price|floatformat:2 }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr class="my-4">
+        <div class="flex justify-between font-bold text-lg">
+            <span>Total:</span>
+            <span>{{ order.get_order_display_price|floatformat:2 }}</span>
+        </div>
+        <button onclick="window.print()" class="mt-6 px-6 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-semibold transition">Print Receipt</button>
+    </div>
+</div>
+{% endblock %}
