@@ -2,7 +2,7 @@
 {% block title %}Signup{% endblock %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-blue-100 to-pink-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#f5f7ff] via-[#e0e7ff] to-[#6366f1]/10 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full space-y-8 bg-white rounded-2xl shadow-lg p-8">
     <div class="text-center">
       <h1 class="text-3xl font-extrabold text-gray-800 mb-2">Create your account</h1>
@@ -13,27 +13,27 @@
       <div class="rounded-md shadow-sm -space-y-px">
         <div class="mb-4">
           <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-          <input id="username" name="username" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="username" name="username" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
         <div class="mb-4">
           <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
-          <input id="first_name" name="first_name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="first_name" name="first_name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
         <div class="mb-4">
           <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
-          <input id="last_name" name="last_name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="last_name" name="last_name" type="text" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
         <div class="mb-4">
           <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
-          <input id="email" name="email" type="email" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="email" name="email" type="email" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
         <div class="mb-4">
           <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
-          <input id="password1" name="password1" type="password" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="password1" name="password1" type="password" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
         <div class="mb-2">
           <label for="password2" class="block text-sm font-medium text-gray-700">Repeat Password</label>
-          <input id="password2" name="password2" type="password" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 bg-gray-50">
+          <input id="password2" name="password2" type="password" required class="appearance-none rounded-xl relative block w-full px-4 py-4 border border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-[#6366f1] focus:border-[#6366f1] bg-gray-50">
         </div>
       </div>
       {% if form.errors %}
@@ -51,12 +51,12 @@
         {% endfor %}
       {% endif %}
       <div>
-        <button type="submit" class="w-full flex justify-center py-4 px-6 rounded-xl text-white bg-purple-500 hover:bg-purple-700 font-semibold transition">Create Account</button>
+        <button type="submit" class="w-full flex justify-center py-4 px-6 rounded-xl text-white bg-[#6366f1] hover:bg-[#4f46e5] font-semibold transition">Create Account</button>
       </div>
     </form>
     <div class="mt-6 text-center">
       <span class="text-gray-600">Already have an account?</span>
-      <a href="{% url 'login' %}" class="ml-2 text-purple-600 hover:text-purple-800 font-semibold transition">Sign In</a>
+      <a href="{% url 'login' %}" class="ml-2 text-[#6366f1] hover:text-[#4f46e5] font-semibold transition">Sign In</a>
     </div>
   </div>
 </div>

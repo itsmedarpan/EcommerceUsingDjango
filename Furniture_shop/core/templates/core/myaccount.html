@@ -46,13 +46,13 @@
                 <div class="border-t pt-4 space-y-6">
                     {% for item in order.items.all %}
                         <div class="flex items-center">
-                            <a href="#" class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg border">
+                            <a href="{% url 'product' item.product.slug %}" class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg border">
                                 <img class="object-cover w-full h-full" src="{{ item.product.get_thumbnail }}" alt="{{ item.product.name }}">
                             </a>
 
                             <div class="ml-5 flex-1">
                                 <div class="flex items-center justify-between mb-1">
-                                    <a href="#" class="text-lg font-semibold text-gray-800 hover:text-[#4f46e5]">{{ item.product.name }}</a>
+                                    <a href="{% url 'product' item.product.slug %}" class="text-lg font-semibold text-gray-800 hover:text-[#4f46e5]">{{ item.product.name }}</a>
                                     <span class="text-base text-gray-400">{{ item.product.get_display_price|floatformat:2 }} x {{ item.quantity }}</span>
                                 </div>
                             </div>
