@@ -1,27 +1,25 @@
 {% if item %}
-<div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}">
-    <a href="{% url 'product' item.product.slug %}" class="w-1/4 group overflow-hidden rounded-xl">
+<div class="product mb-8 flex pr-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden border border-[#6366f1]/10" id="cart-item-{{ item.product.id }}">
+    <a href="{% url 'product' item.product.slug %}" class="w-32 h-32 flex-shrink-0 group overflow-hidden rounded-xl m-6">
         <img 
-            class="w-full h-auto object-cover rounded-xl transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:shadow-lg" 
+            class="w-full h-full object-cover rounded-xl transition-transform duration-300 ease-in-out group-hover:scale-105 group-hover:shadow-lg" 
             src="{{ item.product.get_thumbnail }}" 
             alt="{{ item.product.name }}"
         >
     </a>
-
-    <div class="w-3/4 pl-6 flex flex-col justify-between">
-        <div class="flex justify-between items-start">
-            <a href="{% url 'product' item.product.slug %}" class="text-lg font-semibold text-gray-800 hover:text-purple-600 transition-colors duration-300">
+    <div class="flex-1 flex flex-col justify-between py-6 pr-6">
+        <div class="flex justify-between items-start mb-2">
+            <a href="{% url 'product' item.product.slug %}" class="text-xl font-semibold text-[#4f46e5] hover:text-[#6366f1] transition-colors duration-300">
                 {{ item.product.name }}
             </a>
-
-            <span class="mb-6 pt-1 text-gray-400 font-mono">${{ item.total_price }}</span>
+            <span class="mb-6 pt-1 text-gray-500 font-mono text-lg">${{ item.total_price }}</span>
         </div>
-
-        <hr class="my-4 border-gray-300">
-
+        <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs bg-[#6366f1]/10 text-[#6366f1] px-2 py-1 rounded-full font-semibold">Unit: ${{ item.price }}</span>
+        </div>
         <div class="quantity mt-4 flex items-center space-x-4">
             <a 
-                class="p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer select-none"
+                class="p-3 bg-[#f5f7ff] rounded-lg shadow-sm hover:bg-[#6366f1]/10 transition-colors duration-200 cursor-pointer select-none border border-[#6366f1]/10"
                 hx-get="{% url 'update_cart' item.product.id 'decrement' %}"
                 hx-target="#cart-item-{{ item.product.id }}"
                 hx-swap="outerHTML"
@@ -31,13 +29,22 @@
             </a>
             <span class="text-lg font-medium text-gray-700 select-none">{{ item.quantity }}</span>
             <a 
-                class="p-3 bg-gray-100 rounded-lg shadow-sm hover:bg-gray-200 transition-colors duration-200 cursor-pointer select-none"
+                class="p-3 bg-[#f5f7ff] rounded-lg shadow-sm hover:bg-[#6366f1]/10 transition-colors duration-200 cursor-pointer select-none border border-[#6366f1]/10"
                 hx-get="{% url 'update_cart' item.product.id 'increment' %}"
                 hx-target="#cart-item-{{ item.product.id }}"
                 hx-swap="outerHTML"
                 aria-label="Increase quantity"
             >
                 +
+            </a>
+            <a 
+                class="ml-6 px-4 py-2 bg-red-100 text-red-600 rounded-lg font-semibold hover:bg-red-200 transition"
+                hx-get="{% url 'remove_from_cart' item.product.id %}"
+                hx-target="#cart-item-{{ item.product.id }}"
+                hx-swap="outerHTML"
+                aria-label="Remove item"
+            >
+                Remove
             </a>
         </div>
     </div>

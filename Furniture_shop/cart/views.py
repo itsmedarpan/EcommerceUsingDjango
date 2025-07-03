@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.http import HttpResponse
 from .cart import Cart
 
 from product.models import Product
@@ -59,3 +60,10 @@ def hx_cart_total(request):
 
 def success(request):
     return render(request, 'cart/success.html')
+
+def remove_from_cart(request, product_id):
+    cart = Cart(request)
+    cart.remove(product_id)
+    response = HttpResponse("")
+    response["HX-Trigger"] = "update-menu-cart"
+    return response
