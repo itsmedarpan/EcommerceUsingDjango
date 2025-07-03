@@ -16,7 +16,7 @@ class Category(models.Model):
 class Product(models.Model):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     description = models.TextField(blank=True, null=True)
     price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -83,4 +83,16 @@ class Product(models.Model):
         background.save(thumb_io, 'JPEG', quality=85)
         thumbnail = File(thumb_io, name=f"thumb_{image.name}")
         return thumbnail
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name)
+        original_slug = self.slug
+        queryset = Product.objects.all()
+        n = 1
+        while queryset.filter(slug=self.slug).exclude(pk=self.pk).exists():
+            self.slug = f"{original_slug}-{n}"
+            n += 1
+        super().save(*args, **kwargs)
 

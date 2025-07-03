@@ -33,7 +33,7 @@ class Order(models.Model):
         return sum(item.price * item.quantity for item in self.items.all())
 
     def get_order_display_price(self):
-        return self.get_total_price() / 100
+        return sum(item.product.get_display_price() * item.quantity for item in self.items.all())
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
