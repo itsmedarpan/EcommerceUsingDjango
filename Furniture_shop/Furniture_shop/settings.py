@@ -136,8 +136,16 @@ GRAPH_MODELS = {
     'app_labels': ["order", "product"],
 }
 
-ALLOWED_HOSTS = ['furnitureshop.up.railway.app']
-
 CSRF_TRUSTED_ORIGINS = [
     "https://furnitureshop.up.railway.app"
+]
+
+ALLOWED_HOSTS = [
+    'furnitureshop.up.railway.app',
+    '127.0.0.1',
+    'localhost'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://furnitureshop.up.railway.app'
 ]
