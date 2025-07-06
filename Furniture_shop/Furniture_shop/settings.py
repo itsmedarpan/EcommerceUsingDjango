@@ -137,3 +137,7 @@ GRAPH_MODELS = {
 }
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://furnitureshop.up.railway.app"
+]
