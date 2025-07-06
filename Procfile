@@ -1,1 +1,1 @@
-web: cd Furniture_shop && gunicorn Furniture_shop.wsgi:application --bind 0.0.0.0:8080
+web: gunicorn Furniture_shop.wsgi:application --chdir Furniture_shop --bind 0.0.0.0:$PORT
