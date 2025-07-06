@@ -3,8 +3,11 @@ certifi==2025.4.26
 charset-normalizer==3.4.2
 Django==5.2.1
 django-extensions==4.1
+Faker==37.4.0
 git-filter-repo==2.47.0
+gunicorn==23.0.0
 idna==3.10
+packaging==25.0
 pillow==11.2.1
 pydot==4.0.1
 pyparsing==3.2.3
