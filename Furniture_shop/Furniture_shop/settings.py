@@ -28,7 +28,7 @@ CART_SESSION_ID = 'cart'
 STRIPE_API_KEY_PUBLISHABLE = config('STRIPE_API_KEY_PUBLISHABLE')
 STRIPE_API_KEY_HIDDEN = config('STRIPE_API_KEY_HIDDEN')
 
-# Application definitiond 
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -135,10 +135,6 @@ GRAPH_MODELS = {
     'group_models': True,
     'app_labels': ["order", "product"],
 }
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://furnitureshop.up.railway.app"
-]
 
 ALLOWED_HOSTS = [
     'furnitureshop.up.railway.app',
