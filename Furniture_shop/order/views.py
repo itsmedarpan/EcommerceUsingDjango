@@ -1,13 +1,11 @@
 import json
 import stripe
-
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-
 from cart.cart import Cart
-
 from .models import Order, OrderItem
+from django.urls import reverse
 
 def start_order(request):
     cart = Cart(request)
@@ -36,8 +34,8 @@ def start_order(request):
         payment_method_types=['card'],
         line_items=items,
         mode='payment',
-        success_url='http://127.0.0.1:8000/cart/success/',
-        cancel_url='http://127.0.0.1:8000/cart/'
+        success_url = request.build_absolute_uri(reverse('success')),
+        cancel_url = request.build_absolute_uri(reverse('cart'))
     )
     payment_intent = session.payment_intent
 
